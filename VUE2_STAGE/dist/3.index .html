@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <!--   将模板中的属性，增加一个收集器dep
+    页面渲染的时候，将渲染逻辑风封装到watcher中，vm._update(vm._render());
+    让dep记住这个给watcher即可，稍后属性变化了可以找到对应的dep中存放的watcher进行重新渲染
+    观察者模式 -->
+    <div id="app">
+        {{name}} {{age}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // console.log(Vue);
+        // 响应式的数据变化，数据变化了我可以监控到数据的变化
+        // 数据的取值和更改值，要监控到
+        const vm = new Vue({
+            data: {  // 数据代理
+                name: 'zf',
+                age: 20,
+                address: {
+                    num: 30,
+                    content: '回龙观'
+                },
+                hobby: ['eat','drink',{a:1}]
+            },
+            el: '#app',  // 将数据，解析到el元素上
+
+        })
+
+        vm.name = 'job';       // 不会立即 重新渲染页面
+        Promise.resolve().then(()=>{
+            console.log(app.innerHTML);     
+        })
+        console.log(app.innerHTML);  // 同步获取dao
+
+
+        setTimeout(() => {
+            vm.name = 'jw';
+            vm.age = 30;
+            vm._update(vm._render());   // 重新根据数据渲染一个x虚拟DOM
+        },1000)
+        // 1. 将数据先处理成响应式，initState（针对对象来说主要增加defineProperty 针对数据就是重写方法）
+        // 2. 模板编译：将模板先转化成语法树，将ast语法树生成render方法
+        // 3. 调用render函数，会进行取值操作，产生对应的虚拟DOM render(){_c('div'，null,_v(name))}  触发get方法
+        // 4. 将虚拟DOM渲染成真实DOM
+
+        // 1. 观察者模式实现依赖收集
+        // 2. 异步更新策略
+        // 3. mixin的实现原理
+        var a = 1;
+        setTimeout(() => {
+            console.log(a);
+        })
+
+
+         // 底层就算你写的是上面的方式，也会被转化成$watch的写法
+         vm.$watch(function exprOrFn(){return vm.fullname},function cb(newValue,oldValue){
+            console.log(newValue,oldValue,'11');
+        })
+       
+  </script>
+</body>
+</html>

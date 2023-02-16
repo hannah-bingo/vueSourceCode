@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 遇到需求： 部分的数字和5相加，部分的数字和8相加
+        function createAdder(count) {
+            function adder(num){
+                return count + num;
+            }
+            return adder
+        }
+        
+        var adder5 = createAdder(5)
+        adder5(100)
+        adder5(55)
+        adder5(12)
+
+        var adder8 = createAdder(8)
+        adder8(22)
+        adder8(35)
+        adder8(7)
+
+        console.log(adder5(24));
+        console.log(adder8(30));
+        adder8 = null;        // 内存释放
+
+
+
+
+        // 内存泄漏
+        function createArray() {
+            let arr = new Array(1024*1024).fill(100)
+            function test() {
+                console.log(arr);
+            }
+        }
+        var totalArr = [];
+
+
+
+        // 闭包内存的优化
+        function foo() {
+            var name = "foo"
+            var age = 18
+            var height = 1.88
+            function bar() {
+                console.log(name, height);
+            }
+            return bar
+        }
+        var fn = foo()
+        fn() 
+    </script>
+</body>
+</html>

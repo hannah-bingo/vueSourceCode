@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 这里取值的时候会调用JSON.stringfy() 会对数组中的对象取值 所以对象会收集依赖 -->
+    <!-- _v(_s(arr)) -->
+    <div id="app">
+       {{arr}} 
+    </div>
+    <!-- <script src="vue.js"></script> -->
+    <script>
+        // console.log(Vue);
+        // 响应式的数据变化，数据变化了我可以监控到数据的变化
+        // 数据的取值和更改值，要监控到
+        const vm = new Vue({
+            data: {  // 数据代理
+                arr: [1,2,3,{a:1}],  // 给数组本身增加dep，如果数组新增了某一项，可以触发
+                a:{a:1}
+            },
+            el: '#app',  // 将数据，解析到el元素上
+        })
+
+        // vm.arr[0] = 100;    // 这种方式能监控到嚒？之重写了数组方法
+        // vm.arr.length = 100;   // 没有监控长度变化
+
+        // 这里要注意的是，改变的不是arr属性，而是arr对象的数组对象
+        vm.arr.push(100)
+  </script>
+</body>
+</html>

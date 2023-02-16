@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+    <script src="vue.js"></script>
+    <script>
+       // 跟实例
+       // 组件的三大特性 自定义标签，组件里面有自己的属性和事件  组建的插槽(webcomponent)
+
+       // 声明组件 全局组件  Vue.extend
+       Vue.component('my-button', {   // Vue.options.component = {}
+        template: `<button>全局button</button>`
+       })
+       let Sub = Vue.extend({
+        template: `<button>点我啊<my-button></my-button></button>`,
+        components: {
+            'my-button': {
+                template: `<button>点我啊</button>`
+            }
+        }
+       })
+       new Sub().$mount('#root');      // 会再去创建一个子组件watcher
+       
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <li v-for="(a,index) in arr" :key="a">
+                {{a}} <input type="checkbox">
+            </li>
+        </div>
+        <button @click="append">追加</button>
+    </div>
+    <!-- <script src="vue.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data() {
+                // 自己做id是可以的 , 你自己弄一个index 也是相当于造了一个ad
+                return { arr: ['香蕉', '苹果', '橘子'] }
+            },
+            methods:{
+                append(){
+                    this.arr.unshift('桃子');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{name}} {{age}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // console.log(Vue);
+        // 响应式的数据变化，数据变化了我可以监控到数据的变化
+        // 数据的取值和更改值，要监控到
+        const vm = new Vue({
+            data: {  // 数据代理
+                name: 'zf',
+                age: 20,
+                address: {
+                    num: 30,
+                    content: '回龙观'
+                },
+                hobby: ['eat','drink',{a:1}]
+            },
+            el: '#app',  // 将数据，解析到el元素上
+        })
+
+        setTimeout(() =>{
+            vm.name = 'jw'
+        })
+
+        vm.$mount('#app');
+        vm.name = 'jw';    // 不会立即更新渲染页面
+        // 
+        vm.$nextTick(() => {
+            console.log(app.innerHTML);   // 同步获取dao
+        })
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 1. 计算属性原理
+        // 2. watch实现原理
+        // 3. 数组响应式原理
+        const vm = new Vue({
+            data: {  // 数据代理
+                firstname: '珠',
+                lastname: '峰'
+            },
+            // 计算属性以来的值发生变化才会重新执行用户的方法，计算属性中要维护一个dirty属性，默认计算属性不会立即执行
+            // 计算属性是一个defineProperty
+            // 计算属性也是一个watcher，默认渲染会创造一个渲染watcher
+            computed: {
+                fullname: {    // defineProperty中的get方法
+                    get() {
+                        console.log('run');
+                        return this.firstname + this.lastname
+
+                    },set(newVal){
+                        console.log(newVal);
+                    }
+                }
+            },
+            el: '#app',  // 将数据，解析到el元素上
+
+        })
+
+        setTimeout(() => {
+            vm.name = 'jw';
+            vm.age = 30;
+            vm._update(vm._render());   // 重新根据数据渲染一个x虚拟DOM
+        },1000)
+        // 1. 模板引擎，性能差， 需要正则匹配替换，1.0的时候，没有引入虚拟DOM的改变
+        // 2. 采用虚拟DOM，数据变化后比较虚拟DOM的差异，最后更新需要更新的地方
+        // 3. 核心就是我们需要将模板变成js语法，通过js语法生成虚拟DOM
+
+        // 从一个东西变成另外一个东西，语法之间的转换  es6--->es5
+        // css压缩，需要先变成语法树在重新组装代码成为新的语法，将template语法转换成render函数
+       
+  </script>
+</body>
+</html>

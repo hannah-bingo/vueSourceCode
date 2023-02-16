@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="vue.js"></script>
+    <script>
+        // console.log(Vue);
+        // 响应式的数据变化，数据变化了我可以监控到数据的变化
+        // 数据的取值和更改值，要监控到
+        const vm = new Vue({
+            data() {  // 数据代理   
+                return {
+                    name: 'zf',
+                    age: 20,
+                    address: {
+                        num: 30,
+                        content: '回龙观'
+                    },
+                    hobby: ['eat','drink',{a:1}]
+                }
+                
+            }
+        })
+        // vm._data.name = 'ok'
+        // console.log(vm._data.name);
+        vm.name = 'ok'
+        console.log(vm);  // 取消触发get vm.xxx -->  vm._data.xxx 
+
+        // 实现数组的函数劫持
+        vm.address = {
+            num: 20
+        } // 取值触发 get
+        // console.log(vm.address);
+
+        // 修改数组，很少使用索引，但是内部做劫持会浪费性能
+        // 用户一般修改数组，都是使用
+        vm.hobby[2].a = 100;  // 也要被劫持到
+        vm.hobby.push('1')
+  </script>
+</body>
+</html>

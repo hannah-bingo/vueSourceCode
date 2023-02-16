@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{name}} {{age}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+       Vue.mixin({
+        created() {
+            console.log('mixin1-created');
+        }
+       })
+       Vue.mixin({
+        created() {
+            console.log('mixin2-created');
+        }
+       })
+       console.log(Vue.options);
+
+       // 内部会将多个created合并成一个队列依次执行
+       const vm = new Vue({
+            data: {  // 数据代理
+                name: 'zf',
+                age: 20,
+                address: {
+                    num: 30,
+                    content: '回龙观'
+                },
+                hobby: ['eat','drink',{a:1}]
+            },
+            created(){
+                console.log(this.xxx);
+                console.log('beforeCreate');
+            },
+            el: '#app',  // 将数据，解析到el元素上
+        })
+
+        // Vue.mixin 混合可以混入一些公共方法
+  </script>
+</body>
+</html>
